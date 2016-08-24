@@ -27,6 +27,17 @@ module.exports = function(grunt) {
       }
     },
 
+    gitpush: {
+      live: {
+        options: {
+          // Target-specific options go here. 
+          remote: 'live',
+          branch: 'master'
+        }
+      }
+    },
+
+
     uglify: {
       dist: {
         files: {
@@ -61,11 +72,6 @@ module.exports = function(grunt) {
         tasks: ['cssmin']
       }
     },
-
-    shell: {
-      prodServer: {
-      }
-    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -76,7 +82,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks()
+  grunt.loadNpmTasks('grunt-git');
+  grunt.loadNpmTasks('grunt-run-node');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
@@ -100,11 +107,14 @@ module.exports = function(grunt) {
     'build'
   ]);
 
+  grunt.registerTask('push', [
+    'gitpush'
+  ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
-      
+      grunt.task.run(['push']);
     } else {
       grunt.task.run([ 'build', 'server-dev' ]);
     }
