@@ -17,7 +17,7 @@ userSchema.methods.hashPassword = function () {
   this.password = bcrypt.hashSync(this.password);
   return this;
 };
-
+// Mongo turns user into users when creating collection
 var User = mongoose.model('user', userSchema);
 
 module.exports = User;
