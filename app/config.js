@@ -16,12 +16,6 @@ var urlSchema = new Schema({
 });
 
 db.Url = mongoose.model('url', urlSchema);
-
-var userSchema = new Schema({
-  username: String,
-  password: String
-});
-
-db.User = mongoose.model('user', userSchema); //collection (user turned into users)
+ //collection (user turned into users)
 
 module.exports = db;
