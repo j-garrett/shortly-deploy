@@ -10,10 +10,14 @@ var userSchema = new Schema({
 });
 
 userSchema.methods.comparePassword = function (attemptedPassword, callback) {
-  bcrypt.compare(attemptedPassword, passwordHash, function(err, isMatch) {
-    callback(isMatch);
-  });
-}
+  return bcrypt.compareSync(attemptedPassword, this.password);
+};
+
+userSchema.methods.hashPassword = function () {
+  this.password = bcrypt.hashSync(this.password);
+  return this;
+};
+
 var User = mongoose.model('user', userSchema);
 
 module.exports = User;
