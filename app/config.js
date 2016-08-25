@@ -4,9 +4,7 @@ var path = require('path');
 
 mongoose.connect('mongodb://localhost/shortly'); //database
 
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
+var db = {}; 
 
 var urlSchema = new Schema({
   url: String,
@@ -17,20 +15,13 @@ var urlSchema = new Schema({
   timestamp: {type: Date, default: Date.now }
 });
 
+db.Url = mongoose.model('url', urlSchema);
+
 var userSchema = new Schema({
   username: String,
   password: String
 });
 
-var User = mongoose.model('user', userSchema); //collection (user turned into users)
-new User({username: 'George', password: 'weallare!!'}) // document
-  .save()
-  .then(function(product) {
-    console.log('New user, ' + product + ', created.');
-  })
-  .catch(function(err) {
-    console.log('Error saving user: ', err);
-  });
-
+db.User = mongoose.model('user', userSchema); //collection (user turned into users)
 
 module.exports = db;
