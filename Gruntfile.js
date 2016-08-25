@@ -71,7 +71,21 @@ module.exports = function(grunt) {
         files: 'public/*.css',
         tasks: ['cssmin']
       }
-    },
+    }// ,
+
+    // shell: {
+    //   prodServer: {
+    //   },
+    //   npm: {
+    //     command: 'npm install'
+    //   },
+    //   grunt: {
+    //     command: 'grunt build'
+    //   },
+    //   serverStart: {
+    //     command: 'npm start'
+    //   }
+    // },
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
